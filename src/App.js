@@ -3,13 +3,13 @@ import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
-
+import 'antd/dist/antd.css';
 import {
   Switch,
   Route
 } from 'react-router-dom';
 
-console.log(Loading)
+console.log(Loading);
 // import Home from './pages/Home';
 // import History from './pages/History';
 // import About from './pages/About';

@@ -1,13 +1,13 @@
 import { observable, action } from 'mobx';
-
+//维护登录信息，用户名和密码
 class AuthStore {
-  @observable isLogin  = false;
+  @observable isLogin = false;
   @observable isLoading = false;
   @observable values = {
     username: 'jirengu',
     password: ''
-  };
-
+  };//状态
+  //行为
   @action setIsLogin(isLogin) {
     this.isLogin = isLogin;
   }
@@ -21,23 +21,23 @@ class AuthStore {
   }
 
   @action login() {
-    console.log('登录中...')
+    console.log('登录中...');
     this.isLoading = true;
     setTimeout(() => {
-      console.log('登录成功')
+      console.log('登录成功');
       this.isLogin = true;
       this.isLoading = false;
     }, 1000);
   }
 
   @action register() {
-    console.log('注册中...')
+    console.log('注册中...');
     this.isLoading = true;
     setTimeout(() => {
-      console.log('注册成功')
+      console.log('注册成功');
       this.isLogin = true;
       this.isLoading = false;
-    }, 1000);    
+    }, 1000);
   }
 
   @action logout() {
@@ -47,4 +47,4 @@ class AuthStore {
 }
 
 
-export { AuthStore } ;
+export { AuthStore };
