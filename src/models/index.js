@@ -1,13 +1,10 @@
 import AV, { Query, User } from 'leancloud-storage';
-import resolve from 'resolve';
-
+//后端配置
 AV.init({
     appId: "5x1KiJe7UK9TBYI63km5vujt-gzGzoHsz",
     appKey: "sL8MCPtwV9jZtLuabtt3AdSo",
     serverURL: "https://5x1kije7.lc-cn-n1-shared.com"
 });
-console.log('starting......');
-
 const Auth = {
     register(username, password) {
         let user = new User();
@@ -34,6 +31,4 @@ const Auth = {
     }
 };
 
-
-
-export default {};
+export { Auth };

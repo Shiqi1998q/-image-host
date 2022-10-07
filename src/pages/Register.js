@@ -4,25 +4,36 @@ import { useStores } from '../stores';
 import { Button, Checkbox, Form, Input } from 'antd';
 import styled from 'styled-components';
 
-const Component = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-  const Wrapper = styled.div`
+const Wrapper = styled.div`
   max-width:600px;
   margin:30px auto;
   box-shadow:2px 2px 4px 0 rgba(0,0,0,0.2);
   border-radius:4px;
   padding: 20px;
   `;
-  const Title = styled.h1`
+const Title = styled.h1`
   text-align:center;
   margin-bottom:30px;
 `;
+
+const Component = () => {
+
+  const { AuthStore } = useStores();
+  const onFinish = (values) => {
+    console.log('Success:', values);
+    AuthStore.setUsername(values.username);
+    AuthStore.setPassword(values.password);
+    AuthStore.register()
+      .then(() => { console.log('注册成功，跳转到首页'); })
+      .catch(() => {
+        console.log('注册失败，请重新尝试');
+      });
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   const validatorUsername = (rule, value) => {
     if (/\W/.test(value)) return Promise.reject('只能是字母数字下划线');
     if (value.length < 4 || value.length > 10) return Promise.reject('长度为4~10个字符');
@@ -35,7 +46,6 @@ const Component = () => {
       return Promise.reject('两次密码不一致');
     }
   });
-  console.log(validatorConfirm);
   return (
     <Wrapper>
       <Title>注册</Title>

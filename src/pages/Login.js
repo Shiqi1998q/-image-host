@@ -4,25 +4,38 @@ import { useStores } from '../stores';
 import { Button, Checkbox, Form, Input } from 'antd';
 import styled from 'styled-components';
 
-const Component = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-  const Wrapper = styled.div`
+const Wrapper = styled.div`
   max-width:600px;
   margin:30px auto;
   box-shadow:2px 2px 4px 0 rgba(0,0,0,0.2);
   border-radius:4px;
   padding: 20px;
   `;
-  const Title = styled.h1`
+const Title = styled.h1`
   text-align:center;
   margin-bottom:30px;
 `;
+
+const Component = () => {
+  const { AuthStore } = useStores();
+  AuthStore.setUsername(values.username);
+  AuthStore.setPassword(values.password);
+  const onFinish = (values) => {
+    console.log('Success:', values);
+    AuthStore.login()
+      .then(() => {
+        console.log('登录成功');
+      }, () => { console.log('登录失败，请重试'); });
+    // .catch(() => {
+    //   console.log('登陆失败，请重试');
+    // }
+    // );
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   const validatorUsername = (rule, value) => {
     if (/\W/.test(value)) return Promise.reject('只能是字母数字下划线');
     if (value.length < 4 || value.length > 10) return Promise.reject('长度为4~10个字符');

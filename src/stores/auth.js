@@ -1,50 +1,48 @@
 import { observable, action } from 'mobx';
+import { Auth } from '../models';
 //维护登录信息，用户名和密码
 class AuthStore {
-  @observable isLogin = false;
-  @observable isLoading = false;
+  //状态
   @observable values = {
-    username: 'jirengu',
+    username: '',
     password: ''
-  };//状态
+  };
   //行为
-  @action setIsLogin(isLogin) {
-    this.isLogin = isLogin;
-  }
-
   @action setUsername(username) {
     this.values.username = username;
   }
-
   @action setPassword(password) {
     this.values.password = password;
   }
+  @action register() {
+    return new Promise((resolve, reject) => {
+      Auth.register(this.values.username, this.values.password).then(user => {
+        console.log('注册成功');
+        resolve(user);
+      }).catch(err => {
+        console.log('注册失败');
+        reject(err);
+      });
+    });
+  }
 
   @action login() {
-    console.log('登录中...');
-    this.isLoading = true;
-    setTimeout(() => {
-      console.log('登录成功');
-      this.isLogin = true;
-      this.isLoading = false;
-    }, 1000);
+    return new Promise((resolve, reject) => {
+      Auth.login(this.values.username, this.values.password).then(user => {
+        console.log('登录成功');
+        resolve(user);
+      }).catch(err => {
+        console.log('登陆失败');
+        reject(err);
+      });
+    });
   }
 
-  @action register() {
-    console.log('注册中...');
-    this.isLoading = true;
-    setTimeout(() => {
-      console.log('注册成功');
-      this.isLogin = true;
-      this.isLoading = false;
-    }, 1000);
-  }
 
   @action logout() {
-    console.log('已注销');
+    Auth.logout();
+
   }
-
 }
-
 
 export { AuthStore };
