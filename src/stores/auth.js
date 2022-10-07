@@ -1,7 +1,9 @@
-import { message } from 'antd';
 import { observable, action } from 'mobx';
 import { Auth } from '../models';
 import UserStore from './user';
+import HistoryStore from './history';
+import ImageStore from './image';
+import { message } from 'antd';
 //维护登录信息，用户名和密码
 class AuthStore {
   //状态
@@ -43,6 +45,8 @@ class AuthStore {
   @action logout() {
     Auth.logout();
     UserStore.resetUser();
+    HistoryStore.reset();
+    ImageStore.reset();
   }
 }
 
