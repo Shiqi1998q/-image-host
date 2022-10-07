@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { observable, action } from 'mobx';
 import { Auth } from '../models';
 import UserStore from './user';
@@ -22,7 +23,7 @@ class AuthStore {
         UserStore.pullUser();
         resolve(user);
       }).catch(err => {
-        console.log('注册失败');
+        message.error('注册失败');
         UserStore.resetUser();
         reject(err);
       });
@@ -34,7 +35,7 @@ class AuthStore {
         UserStore.pullUser();
         resolve(user);
       }).catch(err => {
-        console.log('登陆失败2233333');
+        message.error('用户名或密码错误');
         reject(err);
       });
     });

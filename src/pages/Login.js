@@ -23,7 +23,6 @@ const Component = () => {
   const onFinish = (values) => {
     AuthStore.setUsername(values.username);
     AuthStore.setPassword(values.password);
-    console.log('Success:', values);
     AuthStore.login()
       .then(() => {
         console.log('登录成功');
