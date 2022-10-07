@@ -1,5 +1,6 @@
 import AV, { Query, User } from 'leancloud-storage';
-//后端配置
+//发送请求获取数据
+
 AV.init({
     appId: "5x1KiJe7UK9TBYI63km5vujt-gzGzoHsz",
     appKey: "sL8MCPtwV9jZtLuabtt3AdSo",
@@ -19,7 +20,12 @@ const Auth = {
     },
     login(username, password) {
         return new Promise((resolve, reject) => {
-            User.login(username, password).then(loginedUser => resolve(loginedUser), error => reject(error));
+            User.logIn(username, password)
+                .then(loginedUser => {
+                    resolve(loginedUser);
+                }
+                    ,
+                    error => reject(error));
         }
         );
     },

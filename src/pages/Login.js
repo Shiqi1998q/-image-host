@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { useStores } from '../stores';
 import { Button, Checkbox, Form, Input } from 'antd';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
   max-width:600px;
@@ -18,18 +19,23 @@ const Title = styled.h1`
 
 const Component = () => {
   const { AuthStore } = useStores();
-  AuthStore.setUsername(values.username);
-  AuthStore.setPassword(values.password);
+  const history = useHistory();
   const onFinish = (values) => {
+    AuthStore.setUsername(values.username);
+    AuthStore.setPassword(values.password);
     console.log('Success:', values);
     AuthStore.login()
       .then(() => {
         console.log('登录成功');
-      }, () => { console.log('登录失败，请重试'); });
-    // .catch(() => {
-    //   console.log('登陆失败，请重试');
-    // }
-    // );
+        history.push('/');
+      }
+        // , () => { console.log('登录失败，请重试'); }
+      )
+      .catch((e) => {
+        console.log(e);
+        console.log('登陆失败，请重试');
+      }
+      );
   };
 
   const onFinishFailed = (errorInfo) => {
