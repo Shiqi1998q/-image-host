@@ -9,7 +9,6 @@ import {
   Route
 } from 'react-router-dom';
 
-console.log(Loading);
 // import Home from './pages/Home';
 // import History from './pages/History';
 // import About from './pages/About';

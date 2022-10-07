@@ -48,8 +48,6 @@ const Uploader = observer(() => {
     }));
 
     const bindWidthChange = () => {
-        console.log('bindWidthChange...');
-        console.log(ref1.current.value);
         store.setWidth(ref1.current.value);
     };
 
@@ -77,7 +75,7 @@ const Uploader = observer(() => {
             }
             ImageStore.upload()
                 .then((serverFile) => {
-                    console.log('上传成功');
+
                     console.log(serverFile);
                 }).catch(() => {
                     console.log('上传失败');

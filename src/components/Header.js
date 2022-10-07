@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LogoUrl from './logo.svg';
+import LogoUrl from '../logo.png';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from 'antd';
